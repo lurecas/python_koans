@@ -22,6 +22,17 @@ def triangle(a, b, c):
     else:
         if ((a + b) < c) or ((a + c) < b) or ((b + c) < a):
             raise TriangleError('The sum of any two sides should be greater than the third one')
+        else:
+            triangle_sides = {a, b, c}
+            num_equal_sides = len(triangle_sides)
+            if num_equal_sides == 0:
+                raise TriangleError('The sum of any two sides should be greater than the third one')
+            elif num_equal_sides == 1:
+                return 'equilateral'
+            elif num_equal_sides == 2:
+                return 'isosceles'
+            elif num_equal_sides == 3:
+                return 'scalene'
 
 
 # Error class used in part 2.  No need to change this code.
