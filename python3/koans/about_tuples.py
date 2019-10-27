@@ -16,7 +16,6 @@ class AboutTuples(Koan):
             count_of_three[2] = "three"
         except TypeError as ex:
             msg = ex.args[0]
-            print(msg)
 
         # Note, assertRegex() uses regular expression pattern matching,
         # so you don't have to copy the whole message.
@@ -37,7 +36,7 @@ class AboutTuples(Koan):
         list_count.append("boom")
         count_of_three = tuple(list_count)
 
-        self.assertEqual([1, 2, 5, "boom"], count_of_three)
+        self.assertEqual((1, 2, 5, "boom"), count_of_three)
 
     def test_tuples_of_one_look_peculiar(self):
         self.assertEqual(int, (1).__class__)
@@ -46,7 +45,7 @@ class AboutTuples(Koan):
         self.assertEqual(str, ("Not a tuple").__class__)
 
     def test_tuple_constructor_can_be_surprising(self):
-        self.assertEqual("Surprise!", tuple("Surprise!"))
+        self.assertEqual(('S', 'u', 'r', 'p', 'r', 'i', 's', 'e', '!'), tuple("Surprise!"))
 
     def test_creating_empty_tuples(self):
         self.assertEqual((), ())
@@ -56,7 +55,7 @@ class AboutTuples(Koan):
         lat = (37, 14, 6, 'N')
         lon = (115, 48, 40, 'W')
         place = ('Area 51', lat, lon)
-        self.assertEqual(('Area 51', 37, 14, 6, 'N', 115, 48, 40, 'W'), place)
+        self.assertEqual(('Area 51', (37, 14, 6, 'N'), (115, 48, 40, 'W')), place)
 
     def test_tuples_are_good_for_representing_records(self):
         locations = [

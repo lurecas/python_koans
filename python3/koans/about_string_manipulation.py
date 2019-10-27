@@ -35,7 +35,7 @@ class AboutStringManipulation(Koan):
 
     def test_single_characters_can_be_represented_by_integers(self):
         self.assertEqual(97, ord('a'))
-        self.assertEqual(98, ord('b') == (ord('a') + 1))
+        self.assertEqual(True, ord('b') == (ord('a') + 1))
 
     def test_strings_can_be_split(self):
         string = "Sausage Egg Cheese"
@@ -56,10 +56,9 @@ class AboutStringManipulation(Koan):
 
     def test_raw_strings_do_not_interpret_escape_characters(self):
         string = r'\n'
-        print(string)
-        self.assertNotEqual('\n', string)
-        self.assertEqual("", string)
-        self.assertEqual(0, len(string))
+        self.assertNotEqual("\n", string)
+        self.assertEqual(r'\n', string)
+        self.assertEqual(2, len(string))
 
         # Useful in regular expressions, file paths, URLs, etc.
 
