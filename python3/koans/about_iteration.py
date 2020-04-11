@@ -58,7 +58,7 @@ class AboutIteration(Koan):
             return (item % 2) == 0
 
         seq = [1, 2, 3, 4, 5, 6]
-        even_numbers = filter(is_even, seq)
+        even_numbers = []
 
         for item in filter(is_even, seq):
             even_numbers.append(item)
@@ -123,7 +123,7 @@ class AboutIteration(Koan):
         self.assertEqual([11, 12, 13], list(result))
 
         try:
-            file = open("../example_file.txt")
+            file = open("example_file.txt")
 
             try:
                 def make_upcase(line):
