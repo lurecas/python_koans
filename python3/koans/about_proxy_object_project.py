@@ -15,17 +15,45 @@
 
 # Note: This is a bit trickier than its Ruby Koans counterpart, but you
 # can do it!
+from typing import Any
 
 from runner.koan import *
 
 class Proxy:
     def __init__(self, target_object):
         # WRITE CODE HERE
+        self._messages = list()
 
-        #initialize '_obj' attribute last. Trust me on this!
+        # initialize '_obj' attribute last. Trust me on this!
         self._obj = target_object
 
-    # WRITE CODE HERE
+    def __setattr__(self, name: str, value: Any) -> None:
+        # the self._obj will also call __setattr__, for those cases, we store on Proxy
+        if '_' == name[0]:
+            return object.__setattr__(self, name, value)
+
+        self._messages.append(name)
+
+        setattr(self._obj, name, value)
+
+    def __getattr__(self, item):
+        attr = getattr(self._obj, item)
+
+        self._messages.append(item)
+
+        return attr
+
+        # WRITE CODE HERE
+
+    def messages(self) -> list:
+        return self._messages
+
+    def was_called(self, attr_name) -> bool:
+        return attr_name in self.messages()
+
+    def number_of_times_called(self, attr_name) -> int:
+        return self.messages().count(attr_name)
+
 
 # The proxy object should pass the following Koan:
 #
@@ -58,7 +86,6 @@ class AboutProxyObjectProject(Koan):
 
         with self.assertRaises(AttributeError):
             tv.no_such_method()
-
 
     def test_proxy_reports_methods_have_been_called(self):
         tv = Proxy(Television())
